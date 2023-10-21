@@ -4,16 +4,14 @@ const port = process.env.PORT || 4000;
 const cors = require('cors');
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
-// app.use((req, res, next) => { res.header({"Access-Control-Allow-Origin": "*"}); next(); })
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*")
-  }) 
-
 app.use(cors());
-// app.use(cors({credentials: true, origin: 'http://localhost:5173'}));
+app.use(express.json());
+app.use((req, res, next) => {
+res.header("Access-Control-Allow-Origin", "*");
+next();
+});
 
-// app.use(express.json());
-// require('dotenv').config()
+require('dotenv').config()
 
 
 const uri = `mongodb+srv://${process.env.USERNAME}:${process.env.USER_PASSWORD}@cluster0.lnoc98n.mongodb.net/?retryWrites=true&w=majority`;
