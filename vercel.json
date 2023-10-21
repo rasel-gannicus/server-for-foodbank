@@ -7,6 +7,17 @@
             "use": "@vercel/node"
         }
     ],
+        "headers": [
+          {
+            "source": "http://localhost:5173",
+            "headers": [
+              {
+                "key": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ]
+          }
+        ],
     "routes": [
         {
             "src": "/(.*)",
