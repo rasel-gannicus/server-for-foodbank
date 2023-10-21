@@ -22,7 +22,6 @@ const client = new MongoClient(uri, {
 
 async function run() {
     try {
-        await client.connect();
         const countryDB = client.db('country&city').collection('country');
         const stateDB = client.db('country&city').collection('state');
         const cityDB = client.db('country&city').collection('city');
