@@ -5,10 +5,14 @@ const cors = require('cors');
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 const corsOptions = {
-    origin: "http://localhost:5173"
+    origin: "http://localhost:5173",
+    credentials : true
   };
   
-  app.use(cors(corsOptions));
+  app.use(cors({
+    origin: "http://localhost:5173",
+    credentials : true
+  }));
 
 // app.use(cors());
 // app.use(cors({credentials: true, origin: 'http://localhost:5173'}));
