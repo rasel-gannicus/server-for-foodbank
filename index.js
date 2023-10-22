@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 4000;
+const port = 4000;
 const cors = require('cors');
+require('dotenv').config();
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 app.use(cors());
@@ -11,7 +12,8 @@ app.use(express.json());
 // next();
 // });
 
-require('dotenv').config()
+
+
 
 
 const uri = `mongodb+srv://${process.env.USERNAME}:${process.env.USER_PASSWORD}@cluster0.lnoc98n.mongodb.net/?retryWrites=true&w=majority`;
@@ -29,8 +31,8 @@ async function run() {
     try {
 
         // Connect the client to the server	(optional starting in v4.7)
-        client.connect();
-        
+        await client.connect();
+
         const countryDB = client.db('country&city').collection('country');
         const stateDB = client.db('country&city').collection('state');
         const cityDB = client.db('country&city').collection('city');
