@@ -1,12 +1,12 @@
 {
   "name": "server-for-foodbank",
   "version": "1.0.0",
-  "description": "",
   "build": "node index.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
     "build": "node index.js",
-    "start": "node index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,7 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "mongodb": "^6.1.0",
+    "description": "",
     "nodemon": "^3.0.1"
   }
 }
