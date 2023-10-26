@@ -7,13 +7,6 @@ const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 app.use(cors());
 app.use(express.json());
-// app.use((req, res, next) => {
-// res.header("Access-Control-Allow-Origin", "*");
-// next();
-// });
-
-
-
 
 
 const uri = `mongodb+srv://${process.env.USERNAME}:${process.env.USER_PASSWORD}@cluster0.lnoc98n.mongodb.net/?retryWrites=true&w=majority`;
@@ -37,6 +30,8 @@ async function run() {
         const stateDB = client.db('country&city').collection('state');
         const cityDB = client.db('country&city').collection('city');
 
+        // --- db for adding food review or getting food review data
+        const foodReviewDB = client.db('food').collection('review')
 
         // --- getting all the country data 
         app.get('/getCountry', async(req, res)=>{
@@ -63,8 +58,29 @@ async function run() {
             const result = await cursor.toArray();
             res.send(result)
             
-            console.log(result);
         }) 
+
+        // --- get single city data
+        app.get(`/getSingleCity/:cityId`, async(req, res)=>{
+            const query = {city_id : req.params.cityId} ;
+            const result = await cityDB.findOne(query) ;
+            res.send(result)
+        })
+
+        // --- getting all the reviewed food items
+        app.get('/review/getAllfoods', async(req,res)=>{
+            const query = {};
+            const cursor = foodReviewDB.find(query);
+            const result = await cursor.toArray();
+            res.send(result);
+        })
+
+        // --- adding a food review
+        app.post('/review/addNewFood', async(req,res)=>{
+            const data = req.body ; 
+            const result = await foodReviewDB.insertOne(data);
+            res.send(result) ; 
+        })
        
 
     } finally {
