@@ -59,11 +59,25 @@ async function run() {
             res.send(result)
             
         }) 
-
+ 
         // --- get single city data
         app.get(`/getSingleCity/:cityId`, async(req, res)=>{
             const query = {city_id : req.params.cityId} ;
             const result = await cityDB.findOne(query) ;
+            res.send(result)
+        })
+         
+        // --- get single country data
+        app.get(`/getSingleCountry/:countryId`, async(req, res)=>{
+            const query = {country_id : req.params.countryId} ;
+            const result = await countryDB.findOne(query) ;
+            res.send(result)
+        })
+ 
+        // --- get single state data
+        app.get(`/getSingleState/:stateId`, async(req, res)=>{
+            const query = {state_id : req.params.stateId} ;
+            const result = await stateDB.findOne(query) ;
             res.send(result)
         })
 
@@ -75,12 +89,38 @@ async function run() {
             res.send(result);
         })
 
+        // --- Get food item's data by country
+        app.get('/review/getFoodByCountry/:countryCode', async(req,res)=>{
+            // console.log(req.params);
+            const query = {'data.countryId' : req.params.countryCode} ;
+            const cursor = foodReviewDB.find(query);
+            const result = await cursor.toArray();
+            res.send(result);
+        })
+        // --- Get food item's data by states
+        app.get('/review/getFoodByState/:stateCode', async(req,res)=>{
+            // console.log(req.params);
+            const query = {'data.stateId' : req.params.stateCode} ;
+            const cursor = foodReviewDB.find(query);
+            const result = await cursor.toArray();
+            res.send(result);
+        })
+        // --- Get food item's data by city
+        app.get('/review/getFoodByCity/:cityCode', async(req,res)=>{
+            // console.log(req.params);
+            const query = {'data.cityId' : req.params.cityCode} ;
+            const cursor = foodReviewDB.find(query);
+            const result = await cursor.toArray();
+            res.send(result);
+        })
+
         // --- adding a food review
         app.post('/review/addNewFood', async(req,res)=>{
             const data = req.body ; 
             const result = await foodReviewDB.insertOne(data);
             res.send(result) ; 
         })
+
        
 
     } finally {
